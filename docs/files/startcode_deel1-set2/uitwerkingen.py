@@ -93,9 +93,9 @@ def gradient_descent(X, y, theta, alpha, num_iters):
     if theta.shape == (1, n):
         theta = theta.T
 
-    for iter in range(num_iters):
+    for _ in range(num_iters):
         #   1. bepaal de voorspelling voor het datapunt, gegeven de huidige waarde van theta
-        predictions = X.dot(theta)
+        predictions = X.dot(theta)# X -> m /times n theta -> n /times 1 resultaat: m /times 1
 
         #   2. bepaal het verschil tussen deze voorspelling en de werkelijke waarde
         errors = predictions - y
