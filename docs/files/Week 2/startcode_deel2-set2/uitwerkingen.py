@@ -123,12 +123,14 @@ def nn_check_gradients(Theta2, Theta3, X, y):
     y_matrix = get_y_matrix(y, m)
 
     a1 = np.hstack((np.ones((m, 1)), X))
-    a2 = np.hstack((np.ones((m, 1)), sigmoid(a1.dot(Theta2.T))))
-    a3 = sigmoid(a2.dot(Theta3.T))
+    z2 = a1.dot(Theta2.T)
+    a2 = np.hstack((np.ones((m, 1)), sigmoid(z2)))
+    z3 = a2.dot(Theta3.T)
+    a3 = sigmoid(z3)
 
     for i in range(m):
         delta3 = a3[i] - y_matrix[i]
-        delta2 = Theta3.T.dot(delta3) * sigmoid_gradient(np.hstack((1, a1.dot(Theta2.T)[i])))
+        delta2 = Theta3.T.dot(delta3) * sigmoid_gradient(np.hstack((1, z2[i])))
 
         Delta3 += np.outer(delta3, a2[i])
         Delta2 += np.outer(delta2[1:], a1[i])
