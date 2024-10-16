@@ -87,7 +87,3 @@ input ("Druk op enter om verder te gaan...")
 print ("Opslaan van het model")
 save_model(model)
 print ("Klaar 😎")
-
-print("Model draaien op de test data")
-test_loss, test_acc = model.evaluate(test_images, test_labels)
-print(f"Test accuracy: {test_acc}")

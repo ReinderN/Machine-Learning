@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b4bb2a1-0bfb-4f5a-9730-6bf356071b36" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/docs/files/Week 5-6/helpers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/files/Week 5-6/opgave3-2.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/files/Week 5-6/opgave3-3.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/files/Week 5-6/startcode_deel3-set1/fashion.keras" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/files/Week 2/startcode_deel2-set2/uitwerkingen.py" beforeDir="false" afterPath="$PROJECT_DIR$/docs/files/Week 2/startcode_deel2-set2/uitwerkingen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/files/Week 2/Opdracht DBSCAN.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/docs/files/Week 2/Opdracht DBSCAN.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/files/Week 2/startcode_deel2-set3/exercise3.py" beforeDir="false" afterPath="$PROJECT_DIR$/docs/files/Week 2/startcode_deel2-set3/exercise3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/files/Week 2/startcode_deel2-set3/fashion.keras" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +60,13 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs/files/Week 5-6" />
+      <recent name="$PROJECT_DIR$/docs/files/Week 5-6/startcode_deel3-set1" />
+      <recent name="$PROJECT_DIR$/docs/files" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -85,7 +98,10 @@
       <workItem from="1727960863019" duration="567000" />
       <workItem from="1727979494101" duration="681000" />
       <workItem from="1728032888958" duration="469000" />
-      <workItem from="1728040480994" duration="402000" />
+      <workItem from="1728040480994" duration="2895000" />
+      <workItem from="1728055119036" duration="39000" />
+      <workItem from="1728557607621" duration="5911000" />
+      <workItem from="1729063683394" duration="928000" />
     </task>
     <servers />
   </component>
@@ -94,8 +110,8 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Machine_Learning$uitwerkingen.coverage" NAME="uitwerkingen Coverage Results" MODIFIED="1728040761892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/docs/files/Week 2/startcode_deel2-set3" />
-    <SUITE FILE_PATH="coverage/Machine_Learning$exercise2.coverage" NAME="exercise2 Coverage Results" MODIFIED="1728040870004" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/docs/files/Week 2/startcode_deel2-set2" />
+    <SUITE FILE_PATH="coverage/Machine_Learning$exercise2.coverage" NAME="exercise2 Coverage Results" MODIFIED="1728040888818" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/docs/files/Week 2/startcode_deel2-set2" />
     <SUITE FILE_PATH="coverage/Machine_Learning$exercise1.coverage" NAME="exercise1 Coverage Results" MODIFIED="1726817677420" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/docs/files/startcode_deel1-set2" />
-    <SUITE FILE_PATH="coverage/Machine_Learning$exercise3.coverage" NAME="exercise3 Coverage Results" MODIFIED="1728040815767" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/docs/files/Week 2/startcode_deel2-set3" />
+    <SUITE FILE_PATH="coverage/Machine_Learning$exercise3.coverage" NAME="exercise3 Coverage Results" MODIFIED="1728562790368" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/docs/files/Week 5-6/startcode_deel3-set1" />
   </component>
 </project>
