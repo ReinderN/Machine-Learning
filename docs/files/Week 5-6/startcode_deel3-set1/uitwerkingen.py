@@ -59,10 +59,10 @@ def conf_data(metrics):
     # BEREKEN HIERONDER DE JUISTE METRIEKEN EN RETOURNEER DIE 
     # ALS EEN DICTIONARY
 
-    tpr = tp / (tp+fn)
-    ppv = tp / (tp+tn)
-    tnr = tn / (tn+fp)
-    fpr = fp / (fp+tn)
+    tpr = tp / (tp + fn)
+    ppv = tp / (tp + tn)
+    tnr = tn / (tn + fp)
+    fpr = fp / (fp + tn)
 
     rv = {'tpr':tpr, 'ppv':ppv, 'tnr':tnr, 'fpr':fpr }
     return rv
