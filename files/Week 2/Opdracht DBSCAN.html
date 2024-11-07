@@ -1,0 +1,1716 @@
+
+<!doctype html>
+<html lang="nl" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Stof en opgaven voor Machine Learning (jaar 4 SE)">
+      
+      
+        <meta name="author" content="Bart Barnard en Erik Roos">
+      
+      
+        <link rel="canonical" href="https://hanze-hbo-ict.github.io/Machine-Learning/files/Week%202/Opdracht%20DBSCAN.html">
+      
+      
+        <link rel="prev" href="../intro%20notebook%20en%20sklearn.html">
+      
+      
+        <link rel="next" href="../Week%205-6/opgave3-2.html">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
+    
+    
+      
+        <title>Opdracht DBSCAN - Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#opgave-dbscan" class="md-skip">
+          Ga naar inhoud
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="Machine Learning" class="md-header__button md-logo" aria-label="Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Opdracht DBSCAN
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Zoeken" placeholder="Zoeken" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Zoeken">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Leegmaken" aria-label="Leegmaken" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Zoeken initialiseren
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigatie" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="Machine Learning" class="md-nav__button md-logo" aria-label="Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welkom bij Machine Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Files
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Files
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Gradient%20Descent%20%28live%20coding%20HC%202%29.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gradient Descent (live coding HC 2)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Opdracht%20model-evaluatie.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Opdracht model evaluatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro%20notebook%20en%20sklearn.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intro notebook en sklearn
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Week 2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Week 2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="Opdracht%20DBSCAN.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Opdracht DBSCAN
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Week 5 6
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Week 5 6
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Week%205-6/opgave3-2.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Opgave3 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Week%205-6/opgave3-3.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Opgave3 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Week 7 8
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Week 7 8
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_1" id="__nav_2_6_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Deel 1
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            Deel 1
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week%207-8/Deel%201/opgave4-1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Opgave4 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_2" id="__nav_2_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Deel 2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Deel 2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week%207-8/Deel%202/opgave4-2.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Opgave4 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_3" id="__nav_2_6_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Deel 3
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            Deel 3
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../week%207-8/Deel%203/opgave4-3.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Opgave4 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Week1
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Week1
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stof: Tools en technieken
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Week2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Week2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stof: Lineaire regressie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/inleveren.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inleveren deel 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/opgave1-2.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deel 1 - opgaveset 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Week3
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Week3
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stof: Logistische regressie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Week4
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Week4
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stof: Neurale netwerken
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/inleveren.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inleveren deel 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/opgave2-1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deel 2 - opgaveset 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/opgave2-2.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deel 2 - opgaveset 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/opgave2-3.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deel 2 - opgaveset 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Week5
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Week5
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stof: Model-evaluatie, Hyperparameter tuning en Dimensionaliteitsreductie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Week6
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Week6
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stof: Andere modellen en Ensemble learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/inleveren.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inleveren deel 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/opgave3-1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deel 3 - opgaveset 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Week7
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Week7
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stof: Recurrent Neural Networks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Week8
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Week8
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stof: Grote taalmodellen, afsluiting en evaluatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/inleveren.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inleveren deel 4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Inhoudsopgave">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script>
+(function() {
+  function addWidgetsRenderer() {
+    var requireJsScript = document.createElement('script');
+    requireJsScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js';
+
+    var mimeElement = document.querySelector('script[type="application/vnd.jupyter.widget-view+json"]');
+    var jupyterWidgetsScript = document.createElement('script');
+    var widgetRendererSrc = 'https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js';
+    var widgetState;
+
+    // Fallback for older version:
+    try {
+      widgetState = mimeElement && JSON.parse(mimeElement.innerHTML);
+
+      if (widgetState && (widgetState.version_major < 2 || !widgetState.version_major)) {
+        widgetRendererSrc = 'jupyter-js-widgets@*/dist/embed.js';
+      }
+    } catch(e) {}
+
+    jupyterWidgetsScript.src = widgetRendererSrc;
+
+    document.body.appendChild(requireJsScript);
+    document.body.appendChild(jupyterWidgetsScript);
+  }
+
+  document.addEventListener('DOMContentLoaded', addWidgetsRenderer);
+}());
+</script>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="opgave-dbscan">Opgave DBSCAN<a class="headerlink" href="#opgave-dbscan" title="Permanent link">&para;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In deze opgave gaan we voor de verandering werken met de iris-dataset. We hebben hiervoor gekozen omdat het een fijne kleine en overzichtelijke dataset is en omdat deze inmiddels al voldoende is toegelicht.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Omdat we nu unsupervised te werk gaan, maken we geen gebruik van de <code>y</code>-vector. We willen kijken of we een <a href="https://scikit-learn.org/stable/modules/clustering.html#dbscan">DBSCAN-model</a> kunnen maken dat de data in verschillende klassen kan classificeren. Om deze classificatie inzichtelijk te maken, hebben we een hulpfunctie <code>plot_dbscan</code> gemaakt, die je hieronder ziet staan. Bestudeer eventueel deze code om een beeld te krijgen van hoe hij werkt en wat de bedoeling is.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Run de onderstaande cel om de noodzakelijke imports uit te voeren.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">DBSCAN</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</code></pre></div>
+
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Run de onderstaande cel om de methode <code>plot_dbscan</code> te definiëren.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_dbscan</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">labels</span><span class="p">):</span>
+    <span class="n">core_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">labels_</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="n">core_mask</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">core_sample_indices_</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">anomalies_mask</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">labels_</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">non_core_mask</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">core_mask</span> <span class="o">|</span> <span class="n">anomalies_mask</span><span class="p">)</span>
+
+    <span class="n">cores</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">components_</span>
+    <span class="n">anomalies</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">anomalies_mask</span><span class="p">]</span>
+    <span class="n">non_cores</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">non_core_mask</span><span class="p">]</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cores</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cores</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">labels_</span><span class="p">[</span><span class="n">core_mask</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Paired&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cores</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cores</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">labels_</span><span class="p">[</span><span class="n">core_mask</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;^&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;klasse&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">anomalies</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">anomalies</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;uitbijter&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">non_cores</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">non_cores</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">labels_</span><span class="p">[</span><span class="n">non_core_mask</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;non-core&#39;</span><span class="p">)</span>
+
+    <span class="n">x_str</span> <span class="o">=</span> <span class="s1">&#39;$x_1$&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;xlabel&#39;</span> <span class="ow">in</span> <span class="n">labels</span> <span class="k">else</span> <span class="n">labels</span><span class="p">[</span><span class="s1">&#39;xlabel&#39;</span><span class="p">]</span>
+    <span class="n">y_str</span> <span class="o">=</span> <span class="s1">&#39;$x_2$&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;ylabel&#39;</span> <span class="ow">in</span> <span class="n">labels</span> <span class="k">else</span> <span class="n">labels</span><span class="p">[</span><span class="s1">&#39;ylabel&#39;</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">x_str</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">y_str</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;eps=</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">eps</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, min_samples=</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">min_samples</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Laad de iris-dataset van uit <code>sklearn-datasets</code>. Zoals tijdens het theoriecollege is toegelicht zijn ε (<code>eps</code>) en het aantal samples in de omgeving van het gekozen datapunt de belangrijkste parameters van DBSCAN. Maak verschillende modellen met (in ieder geval) de onderstaande waarden voor deze parameters. Maak telkens een plot en registreer het aantal klassen, uitbijters en non-core observaties.</p>
+<div class="highlight"><pre><span></span><code>  min_samples: [3, 4, 5, 7, 9]
+  eps{ [.1, .4, .55, .6, 1, 2]
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Maak vervolgens een interessante visualisatie van deze gegevens om inzichtelijk te krijgen wat de effecten van de verschillende waarden voor deze parameters zijn. Kun je verklaren wat er gebeurt?</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span>
+
+<span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div>
+
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+</code></pre></div>
+
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.001</span>
+<span class="n">costs</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1500</span><span class="p">):</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
+    <span class="n">errors</span> <span class="o">=</span> <span class="n">h</span> <span class="o">-</span> <span class="n">y</span>
+    <span class="n">gradient</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">/</span> <span class="n">m</span>
+    <span class="n">theta</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradient</span>
+    <span class="n">cost</span> <span class="o">=</span> <span class="o">-</span><span class="n">y</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">h</span><span class="p">)</span>
+    <span class="n">costs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cost</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">costs</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_text output_subarea output_execute_result">
+<pre>
+<code>[&lt;matplotlib.lines.Line2D at 0x1528adb50&gt;]</code>
+</pre>
+</div>
+</div>
+<div class="output_area">
+<div class="output_png output_subarea">
+<img alt="No description has been provided for this image" src="data:image/png;base64,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kO666y7169dPWVlZuvTSS7Vx48bI806ab1NTk37wgx9o+PDh6tWrl0aMGKEf//jHCoVCkTHJPt933nlHN998s4qKimRZll599dU2z8dqfidPntS8efPk9Xrl9Xo1b948nTp1Ks6zO9f55tvY2KjHHntMEyZMUHZ2toqKinT33Xfr8OHDbd7DKfNt77777pNlWXrmmWfaPJ5M840Z4wAvvviiSU9PN88995zZunWreeihh0x2drbZv3+/3dGicsMNN5jFixebzZs3m7KyMjNnzhwzZMgQc/r06ciYp556yuTk5Ji//OUvpry83Hzta18zAwcONH6/PzLm/vvvN4MGDTIrVqwwmzZtMtdee6255JJLTFNTkx3T6pINGzaYYcOGmYkTJ5qHHnoo8riT5nvixAkzdOhQc88995j333/f7N2716xcudLs3r07MsZJ8/2Xf/kX069fP/PXv/7V7N271/zXf/2X6d27t3nmmWciY5J9vn/729/M97//ffOXv/zFSDKvvPJKm+djNb9Zs2aZkpISs3btWrN27VpTUlJibrrppp6aZsT55nvq1CkzY8YM89JLL5nt27ebdevWmcsvv9xMnjy5zXs4Zb6tvfLKK+aSSy4xRUVF5j/+4z/aPJdM840VRxSLz33uc+b+++9v89iYMWPM448/blOi2KiurjaSzJo1a4wxxoRCIVNYWGieeuqpyJj6+nrj9XrNb3/7W2NM8/+509PTzYsvvhgZc+jQIeNyucyyZct6dgJdVFNTY0aNGmVWrFhhrr766kixcNp8H3vsMTN9+vROn3fafOfMmWPuvffeNo995StfMXfddZcxxnnzbf+LJ1bz27p1q5Fk1q9fHxmzbt06I8ls3749zrPq3Pl+0YZt2LDBSIr8R54T53vw4EEzaNAgs3nzZjN06NA2xSKZ53shkn4ppKGhQRs3btTMmTPbPD5z5kytXbvWplSx4fP5JEl5eXmSpL1796qysrLNXD0ej66++urIXDdu3KjGxsY2Y4qKilRSUpKwP48FCxZozpw5mjFjRpvHnTbf1157TVOmTNHtt9+u/Px8TZo0Sc8991zkeafNd/r06Xrrrbe0c+dOSdLHH3+s9957TzfeeKMk5823vVjNb926dfJ6vbr88ssjYz7/+c/L6/Um/M/A5/PJsiz16dNHkvPmGwqFNG/ePD366KMaP378Oc87bb5d1eM3IYu1Y8eOKRgMqqCgoM3jBQUFqqystCnVhTPG6JFHHtH06dNVUlIiSZH5dDTX/fv3R8ZkZGSob9++54xJxJ/Hiy++qE2bNumDDz445zmnzXfPnj1atGiRHnnkEX3ve9/Thg0b9K1vfUsej0d333234+b72GOPyefzacyYMUpLS1MwGNQTTzyhO++8U5Lz/n7bi9X8KisrlZ+ff8775+fnJ/TPoL6+Xo8//ri+/vWvR27C5bT5Pv3003K73frWt77V4fNOm29XJX2xCGt/C3ZjTExvy97THnzwQX3yySd67733znmuO3NNxJ9HRUWFHnroIb355pvKzMzsdJxT5hsKhTRlyhQ9+eSTkqRJkyZpy5YtWrRoke6+++7IOKfM96WXXtKSJUv0wgsvaPz48SorK9PDDz+soqIizZ8/PzLOKfPtTCzm19H4RP4ZNDY26o477lAoFNJvfvObzxyfjPPduHGjfv7zn2vTpk1R50rG+UYj6ZdC+vfvr7S0tHOaXXV19Tn/pZAsvvnNb+q1117TqlWr2txivrCwUJLOO9fCwkI1NDTo5MmTnY5JFBs3blR1dbUmT54st9stt9utNWvW6Be/+IXcbnckr1PmO3DgQI0bN67NY2PHjtWBAwckOe/v99FHH9Xjjz+uO+64QxMmTNC8efP07W9/W6WlpZKcN9/2YjW/wsJCVVVVnfP+R48eTcifQWNjo7761a9q7969WrFiRZtbhjtpvu+++66qq6s1ZMiQyL9f+/fv1z/90z9p2LBhkpw132gkfbHIyMjQ5MmTtWLFijaPr1ixQtOmTbMpVfcYY/Tggw/q5Zdf1ttvv63hw4e3eX748OEqLCxsM9eGhgatWbMmMtfJkycrPT29zZgjR45o8+bNCffz+OIXv6jy8nKVlZVFtilTpmju3LkqKyvTiBEjHDXfK6+88pzTh3fu3KmhQ4dKct7fb11dnVyutv/EpKWlRU43ddp824vV/K644gr5fD5t2LAhMub999+Xz+dLuJ9BuFTs2rVLK1euVL9+/do876T5zps3T5988kmbf7+Kior06KOPavny5ZKcNd+o9PTRovEQPt30+eefN1u3bjUPP/ywyc7ONvv27bM7WlQeeOAB4/V6zerVq82RI0ciW11dXWTMU089Zbxer3n55ZdNeXm5ufPOOzs8fW3w4MFm5cqVZtOmTea6665LmNPzPkvrs0KMcdZ8N2zYYNxut3niiSfMrl27zJ/+9CeTlZVllixZEhnjpPnOnz/fDBo0KHK66csvv2z69+9vvvvd70bGJPt8a2pqzEcffWQ++ugjI8n87Gc/Mx999FHkLIhYzW/WrFlm4sSJZt26dWbdunVmwoQJtpyOeL75NjY2mltuucUMHjzYlJWVtfk3LBAIOG6+HWl/VogxyTXfWHFEsTDGmF//+tdm6NChJiMjw1x22WWRUzSTiaQOt8WLF0fGhEIh88Mf/tAUFhYaj8djrrrqKlNeXt7mfc6cOWMefPBBk5eXZ3r16mVuuukmc+DAgR6eTfe0LxZOm+/rr79uSkpKjMfjMWPGjDHPPvtsm+edNF+/328eeughM2TIEJOZmWlGjBhhvv/977f5JZPs8121alWH/5+dP3++MSZ28zt+/LiZO3euycnJMTk5OWbu3Lnm5MmTPTTLs843371793b6b9iqVasi7+GU+Xako2KRTPONFW6bDgAAYibpj7EAAACJg2IBAABihmIBAABihmIBAABihmIBAABihmIBAABihmIBAABihmIBAABihmIBAABihmIBAABihmIBAABihmIBAABi5v8HjSELLcUZyroAAAAASUVORK5CYII="/>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      HG 2021-2024
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Gekopieerd naar klembord", "clipboard.copy": "Kopi\u00ebren naar klembord", "search.result.more.one": "1 extra overeenkomst op deze pagina", "search.result.more.other": "# extra overeenkomsten op deze pagina", "search.result.none": "Geen overeenkomende documenten", "search.result.one": "1 overeenkomende document", "search.result.other": "# overeenkomende documenten", "search.result.placeholder": "Typ om te beginnen met zoeken", "search.result.term.missing": "Ontbreekt", "select.version": "Selecteer versie"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/imgs.js"></script>
+      
+        <script src="../../js/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
