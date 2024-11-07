@@ -5,24 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b4bb2a1-0bfb-4f5a-9730-6bf356071b36" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 1/data/capitals.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 1/data/word_embeddings_subset.p" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 1/imgs/vectors.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 1/imgs/word_embf.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 1/opgave4-1.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 1/utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 2/n-gram.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 2/opgave4-2.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 2/wiki.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 3/bwv988.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 3/csvtomidi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 3/deprocess.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 3/encoding.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 3/opgave4-3.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 3/imgs/n-gram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 3/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/files/Week 5-6/opgave3-2.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/docs/files/Week 5-6/opgave3-2.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/files/Week 5-6/opgave3-3.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/docs/files/Week 5-6/opgave3-3.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/files/Week 5-6/startcode_deel3-set1/uitwerkingen.py" beforeDir="false" afterPath="$PROJECT_DIR$/docs/files/Week 5-6/startcode_deel3-set1/uitwerkingen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/files/week 7-8/Deel 1/opgave4-1.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 1/opgave4-1.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/files/week 7-8/Deel 2/opgave4-2.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 2/opgave4-2.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/files/week 7-8/Deel 2/wiki.txt" beforeDir="false" afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 2/data/wiki.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/files/week 7-8/Deel 3/bwv988.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/files/week 7-8/Deel 3/opgave4-3.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/docs/files/week 7-8/Deel 3/opgave4-3.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,28 +51,29 @@
     &quot;Python.uitwerkingen.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/reinder/Desktop/Hanze/Machine-Learning/docs/files/week 7-8/Deel 3&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/reinder/Desktop/Hanze/Machine-Learning/docs/files/week 7-8/Deel 3/imgs&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.notifications&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs/files/week 7-8/Deel 3/imgs" />
       <recent name="$PROJECT_DIR$/docs/files/week 7-8/Deel 3" />
       <recent name="$PROJECT_DIR$/docs/files/week 7-8/Deel 2" />
       <recent name="$PROJECT_DIR$/docs/files/week 7-8/Deel 1" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs/files/week 7-8/Deel 3/data" />
+      <recent name="$PROJECT_DIR$/docs/files/week 7-8/Deel 2/data" />
       <recent name="$PROJECT_DIR$/docs/files/week 7-8/Deel 1/imgs" />
       <recent name="$PROJECT_DIR$/docs/files/week 7-8/Deel 1/data" />
       <recent name="$PROJECT_DIR$/docs/files/week 7-8/Deel 1" />
-      <recent name="$PROJECT_DIR$/docs/files/week 7-8" />
-      <recent name="$PROJECT_DIR$/docs/files/Week 5-6" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -124,6 +115,11 @@
       <workItem from="1729232309053" duration="2619000" />
       <workItem from="1729765595793" duration="1169000" />
       <workItem from="1729766806760" duration="132000" />
+      <workItem from="1729767140363" duration="3269000" />
+      <workItem from="1730892713503" duration="11153000" />
+      <workItem from="1730911851958" duration="6174000" />
+      <workItem from="1730971290445" duration="576000" />
+      <workItem from="1730994920437" duration="1006000" />
     </task>
     <servers />
   </component>
